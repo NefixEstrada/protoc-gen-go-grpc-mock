@@ -72,7 +72,7 @@ func genServiceMock(gen *protogen.Plugin, file *protogen.File, g *protogen.Gener
 	g.P("s := ", g.QualifiedGoIdent(grpcPackage.Ident("NewServer")), "()")
 	g.P("m := &", serviceType, "{server: s}")
 	g.P()
-	g.P("Register", service.GoName+"Service(s, New", service.GoName, "Service(m))")
+	g.P("Register", service.GoName+"Server(s, m)")
 	g.P()
 	g.P("go s.Serve(lis)")
 	g.P()
@@ -98,6 +98,7 @@ func genServiceMock(gen *protogen.Plugin, file *protogen.File, g *protogen.Gener
 	g.P(g.QualifiedGoIdent(mockPackage.Ident("Mock")))
 	g.P("server *", g.QualifiedGoIdent(grpcPackage.Ident("Server")))
 	g.P("cc *", g.QualifiedGoIdent(grpcPackage.Ident("ClientConn")))
+	g.P("Unimplemented", service.GoName, "Server")
 	g.P("}")
 	g.P()
 
